@@ -5,6 +5,10 @@ import plotly.graph_objects as go
 import requests
 from datetime import datetime, timezone
 
+def hex_to_rgba(h, a=0.28):
+    r,g,b = int(h[1:3],16),int(h[3:5],16),int(h[5:7],16)
+    return f"rgba({r},{g},{b},{a})"
+
 st.set_page_config(
     page_title="🔥 미국-이란 전쟁 전황 대시보드 2026",
     page_icon="🎯",
@@ -442,7 +446,7 @@ with tab4:
         fc.add_trace(go.Bar(name="사망",x=cas["국가"],y=cas["사망"],marker_color=cas["color"],
             text=cas["사망"],textposition="outside",textfont=dict(color="#e2e8f0",size=11)))
         fc.add_trace(go.Bar(name="부상",x=cas["국가"],y=cas["부상"],
-            marker_color=[c+"44" for c in cas["color"]],text=cas["부상"],
+            marker_color=[hex_to_rgba(c) for c in cas["color"]],text=cas["부상"],
             textposition="outside",textfont=dict(color="#64748b",size=10)))
         fc.update_layout(barmode="group",height=300,paper_bgcolor="#060d1a",plot_bgcolor="#060d1a",
             font=dict(color="#e2e8f0",family="Noto Sans KR"),
